@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Subir Materiales{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2>Materiales para Curso #{{ course_id }}</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" enctype="multipart/form-data">
+    <label for="file_type">Tipo de Archivo:</label>
+    <select name="file_type" id="file_type" required>
+      <option value="video">Video</option>
+      <option value="image">Imagen</option>
+      <option value="pdf">PDF</option>
+      <option value="texto">Texto</option>
+    </select><br><br>
+
+    <input type="file" name="file" required><br><br>
+    <button type="submit" class="btn btn-primary">Subir</button>
+    <a href="{{ url_for('public.home') }}" class="btn btn-secondary">Volver</a>
+  </form>
+
+  <hr>
+
+  <h3>Materiales existentes:</h3>
+  <ul>
+    {% for m in materials %}
+      <li>{{ m.file_type }}: 
+        <a href="/{{ m.file_path }}" target="_blank">{{ m.file_path.split('/')[-1] }}</a> 
+        ({{ m.uploaded_at }})
+      </li>
+    {% else %}
+      <li>No hay materiales aún.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

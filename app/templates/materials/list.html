@@ -1,0 +1,52 @@
+<!-- {% extends 'base.html' %}
+
+{% block content %}
+<h2>Materiales del Curso</h2>
+
+<ul>
+  {% for material in materials %}
+    <li>
+      {{ material.file_name }} ({{ material.file_type }})
+      – <a href="{{ url_for('tutor.download_material', course_id=material.course_id, filename=material.file_name) }}">Descargar</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="{{ url_for('tutor.dashboard') }}">← Volver</a>
+{% endblock %} -->
+
+{% extends 'base.html' %}
+{% block content %}
+<h2>Materiales del Curso</h2>
+
+<div class="materials-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+  {% for material in materials %}
+    <div class="material-card" style="border: 1px solid #ccc; border-radius: 10px; padding: 10px; text-align: center;">
+      <h4 style="font-size: 1rem;">{{ material.file_name }}</h4>
+
+      {% if material.file_type.startswith('image/') %}
+        <img src="{{ url_for('tutor.download_material', course_id=material.course_id, filename=material.file_name) }}" 
+             alt="Imagen" style="max-width: 100%; height: auto; border-radius: 5px;">
+      
+      {% elif material.file_type.startswith('video/') %}
+        <video controls style="max-width: 100%; height: auto;">
+          <source src="{{ url_for('tutor.download_material', course_id=material.course_id, filename=material.file_name) }}" type="{{ material.file_type }}">
+          Tu navegador no soporta video.
+        </video>
+
+      {% elif material.file_type == 'application/pdf' %}
+        <a href="{{ url_for('tutor.download_material', course_id=material.course_id, filename=material.file_name) }}" target="_blank">
+          <img src="{{ url_for('static', filename='icons/pdf_icon.png') }}" alt="PDF" width="64"><br>Ver PDF
+        </a>
+
+      {% else %}
+        <a href="{{ url_for('tutor.download_material', course_id=material.course_id, filename=material.file_name) }}" download>
+          <img src="{{ url_for('static', filename='icons/file_icon.png') }}" alt="Archivo" width="64"><br>Descargar
+        </a>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<a href="{{ url_for('tutor.dashboard') }}" style="display: block; margin-top: 20px;">← Volver al panel</a>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Usuario{% endblock %}
+
+{% block content %}
+<h1>Bienvenido a tu Dashboard, {{ session.get('user_name') }}!</h1>
+
+<p>Aquí puedes ver y gestionar tu perfil, cursos y más.</p>
+
+<ul>
+  <li><a href="{{ url_for('user.profile') }}">Mi Perfil</a></li>
+  <li><a href="{{ url_for('user.courses') }}">Mis Cursos</a></li>
+  <li><a href="{{ url_for('user.settings') }}">Configuración</a></li>
+</ul>
+{% endblock %}

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Antares{% endblock %}</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/403.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/materials.css') }}">
+
+  <!-- -------------------  Font Awesome CDN -------------------- -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-yHmbR8V/4B0q0YoV7eUmVXRzAFlYXy1+fPGeS+Jc+crn3nAe+iDdD5sDksqYIN0xRpU1KjBKHZuOkaZ2EeeFwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</head>
+
+<!-- ------------------------ BODY --------------------------- -->
+<body class="{% block body_class %}{% endblock %}">
+
+  {% include "componentes/alerts.html" %}
+
+  <!-- ------- Header --------- -->
+  <header class="site-header">
+    <div class="logo-section">
+      {% block logo %}
+      <div class="logo-container">
+        <img
+          src="{{ url_for('static', filename='img/logo-antares-4.png') }}"
+          alt="Logo Antares"
+          class="logo-img"
+        />
+      </div>
+      {% endblock %}
+
+      {% block subtitle %}
+      <p class="logo-subtitle">Academy</p>
+      {% endblock %}
+    </div>
+  </header>
+
+
+
+
+  <!-- ------ Modo Oscuro -------- -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("theme-toggle");
+
+    // Aplicar tema guardado
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      document.body.classList.add("light-mode");
+    } else {
+      document.body.classList.remove("light-mode");
+    }
+
+    if (toggleBtn) {
+      toggleBtn.textContent = document.body.classList.contains("light-mode") ? "Dark" : "White";
+
+      toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
+        const isLight = document.body.classList.contains("light-mode");
+        toggleBtn.textContent = isLight ? "Dark" : "White";
+        localStorage.setItem("theme", isLight ? "light" : "dark");
+      });
+    }
+  });
+</script>
+
+
+
+  <!-- --------- Boton de Cambio de tema -------- -->
+  <div class="theme-toggle-container">
+    <button id="theme-toggle">White</button>
+  </div>
+
+  <!-- --------- Navegacion principal ----------- -->
+<nav class="main-nav">
+  
+  {% if session.get('user_id') %}
+      {% if request.endpoint != 'admin.dashboard' %}
+        <div class="nav-user-section">
+                Hola, {{ session.get('user_name') }}!
+        </div><br><br>
+      {% endif %}
+        <div class="nav-links">
+          <a href="{{ url_for('public.home') }}" class="nav-btn">Home</a>
+            
+
+                        {% if session.get('user_role') == 'admin' and request.endpoint != 'admin.dashboard' %}
+                    <a href="{{ url_for('admin.dashboard') }}" class="nav-btn m-4">Dashboard Admin</a>
+                  {% elif session.get('user_role') != 'admin' %}
+                    <a href="{{ url_for('user.dashboard') }}" class="nav-btn m-4">Mi Dashboard</a>
+                  {% endif %}
+
+            </div>
+          <a href="{{ url_for('auth.logout') }}" class="nav-btn">Cerrar sesión</a>
+        </div>
+
+      {% else %}
+        <div class="nav-links">
+          <a href="{{ url_for('auth.login') }}" class="nav-btn m-4">Iniciar Sesión</a>
+          <a href="{{ url_for('auth.register') }}" class="nav-btn m-4">Registrarse</a>
+        </div>
+  {% endif %}
+</nav>
+  <!-- ----------- Main Content ------------ -->
+  <main class="main-content">
+    {% block content %}
+    <!-- Aquí va el contenido de cada página -->
+    {% endblock %}
+  </main>
+
+  <!-- --------------------- Section --------------------- -->
+  {% block categorias %}
+  <section class="categories-section"><br /><br /><br />
+    <h2 class="categories-title">Categories</h2>
+    <div class="categories-grid">
+      <div class="category-tile">Programming</div>
+      <div class="category-tile">Design</div>
+      <div class="category-tile">Marketing</div>
+      <div class="category-tile">Business</div>
+      <div class="category-tile">Photography</div>
+      <div class="category-tile">Languages</div>
+    </div>
+  </section>
+  {% endblock %}
+
+  <!-- --------- Barra de búsqueda ----------- -->
+  {% block buscador %}
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="buscar ..." /><br />
+    <button id="search-button">
+      <i class="fas fa-search">Search</i>
+    </button>
+  </div>
+  {% endblock %}
+
+  <!-- ----------------- Footer ---------------- -->
+  <footer class="site-footer">
+    <p>&copy; {{ fecha_completa }} Antares Academy.<br /><br /> Todos los derechos reservados.</p>
+
+    <div class="social-links">
+      <br />
+      <a href="#"><i class="fab fa-youtube"></i> <img
+          src="{{ url_for('static', filename='img/icons/icon-youtube-img.png') }}"
+          alt="icon-youtube"
+          class="icon-youtube-img"
+        /></a>
+      <a href="#"><i class="fab fa-pinterest"></i> <img
+          src="{{ url_for('static', filename='img/icons/icon-pinterest-img.png') }}"
+          alt="icon-pinterest"
+          class="icon-pinterest-img"
+        /></a>
+      <a href="#"><i class="fab fa-gmail"></i> <img
+          src="{{ url_for('static', filename='img/icons/icon-gmail-img.png') }}"
+          alt="icon-gmail"
+          class="icon-gmail-img"
+        /></a>
+      <a href="#"><i class="fab fa-whatsapp"></i> <img
+          src="{{ url_for('static', filename='img/icons/icon-whatsapp-img.png') }}"
+          alt="icon-whatsapp"
+          class="icon-whatsapp-img"
+        /></a>
+    </div>
+  </footer>
+
+
+  <!-- --------------- Search ---------------- -->
+  <script>
+    const searchBtn = document.getElementById("search-button");
+    const searchInput = document.getElementById("search-input");
+
+    searchBtn.addEventListener("click", () => {
+      const query = searchInput.value.trim().toLowerCase();
+
+      const searchRoutes = {
+        programming: "/courses/programming",
+        design: "/courses/design",
+        marketing: "/courses/marketing",
+        negocios: "/courses/business",
+        fotografía: "/courses/photography",
+        idiomas: "/courses/languages",
+      };
+
+      for (let keyword in searchRoutes) {
+        if (query.includes(keyword)) {
+          window.location.href = searchRoutes[keyword];
+          return;
+        }
+      }
+
+      alert("No se encontraron resultados para: " + query);
+    });
+  </script>
+
+ 
+</body>
+</html>
+
+
+<!-- -------------------   
+
+
+
+
+  ---------------------- -->

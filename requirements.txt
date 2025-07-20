@@ -1,0 +1,7 @@
+Flask
+python-dotenv
+firebase-admin
+mysql-connector-python
+celery
+redis
+flask-sqlalchemy

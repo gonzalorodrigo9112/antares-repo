@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Bienvenido a Antares{% endblock %}
+
+
+
+{% block content %}
+<div class="welcome-public-container">
+  <h2 class="welcome-title">Bienvenido a <span class="brand-name">Antares</span></h2>
+  <p class="welcome-subtitle">
+    Por favor <a href="{{ url_for('auth.login') }}">inicia sesión</a>
+ o 
+    <a href="{{ url_for('auth.register') }}">registrate</a>
+ para continuar.
+  </p>
+</div>
+{% endblock %}
+
+
+
+{% block extra_styles %}
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}
+
+{% block categorias %}
+{{ super() }}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const categorias = document.querySelectorAll(".category-tile");
+    categorias.forEach(cat => {
+      cat.addEventListener("click", (e) => {
+        e.preventDefault();
+        Swal.fire({
+          icon: 'info',
+          title: 'Inicia sesión',
+          text: 'Debes iniciar sesión o registrarte para acceder a esta categoría.',
+          confirmButtonText: 'Entendido'
+        });
+      });
+    });
+  });
+</script>
+{% endblock %}
+
+{% block buscador %}
+{{ super() }}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchBtn = document.getElementById("search-button");
+    if (searchBtn) {
+      searchBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        Swal.fire({
+          icon: 'info',
+          title: 'Función protegida',
+          text: 'Para buscar cursos, primero debes iniciar sesión o registrarte.',
+          confirmButtonText: 'Ok'
+        });
+      });
+    }
+  });
+</script>
+{% endblock %}

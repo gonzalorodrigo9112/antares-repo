@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body_class %}admin-dashboard{% endblock %}
+{% block title %}Dash Admin{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+
+  <div class="admin-title">
+    <h1>Panel de Administración</h1>
+  </div>
+
+  <h2>
+    <span>Hola, {{ session.get('user_name') }}</span><br>
+    Aquí podés administrar usuarios, cursos, pagos y más.
+  </h2>
+
+  <ul class="admin-links">
+    <li><a class="admin-panel" href="{{ url_for('admin.manage_users') }}">Gestionar Usuarios</a></li>
+    <li><a class="admin-panel" href="{{ url_for('admin.manage_courses') }}">Gestionar Cursos</a></li>
+    <li><a class="admin-panel" href="{{ url_for('admin.reports') }}">Reportes</a></li>
+  </ul>
+
+</div>
+{% endblock %}

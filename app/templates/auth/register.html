@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Registrarse | Antares{% endblock %}
+{% block categorias %}{% endblock %}
+{% block buscador %}{% endblock %}
+
+{% block content %}
+
+
+<div class="login-container">
+  <div class="login-card">
+    <h2 class="login-title">Crear una cuenta</h2>
+
+    <form method="POST" action="{{ url_for('auth.register') }}" class="login-form" autocomplete="off">
+
+      <label for="full_name">Nombre completo:</label><br>
+      <input type="text" name="full_name" id="full_name" required autocomplete="off"><br><br>
+
+
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" required autocomplete="off"><br><br>
+
+
+      <label for="email">Correo electrónico:</label><br>
+      <input type="email" name="email" id="email" required autocomplete="off"><br><br>
+
+      <label for="password">Contraseña:</label><br>
+      <input type="password" name="password" id="password" required autocomplete="off"><br><br>
+
+      <label for="rol">Rol:</label><br>
+      <select name="rol" id="rol" required>
+        <option value="" disabled selected>Selecciona un rol</option>
+        <option value="alumno">Alumno</option>
+        <option value="tutor">Tutor</option>
+        <option value="admin">Administrador</option>
+      </select><br><br>
+
+     <button type="submit" class="login-btn">Crear cuenta</button>
+
+    </form>
+
+    <p class="register-link">
+      ¿Ya tienes una cuenta?
+      <a href="{{ url_for('auth.login') }}">Inicia sesión aquí</a>
+    </p>
+  </div>
+</div>
+
+{% if error %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error de registro',
+      html: '{{ error|safe }}',
+      confirmButtonText: 'Reintentar',
+      timer: 5000,
+      timerProgressBar: true
+    });
+  });
+</script>
+{% endif %}
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form");
+  const email = document.getElementById("email");
+  const password = document.getElementById("password");
+  const fullName = document.getElementById("full_name");
+  const rol = document.getElementById("rol");
+
+  // Mostrar/ocultar contraseña
+  const togglePasswordBtn = document.createElement("button");
+  togglePasswordBtn.type = "button";
+  togglePasswordBtn.textContent = "👁️";
+  togglePasswordBtn.style.marginLeft = "10px";
+  togglePasswordBtn.style.cursor = "pointer";
+  password.parentNode.insertBefore(togglePasswordBtn, password.nextSibling);
+
+  togglePasswordBtn.addEventListener("click", () => {
+    password.type = password.type === "password" ? "text" : "password";
+    togglePasswordBtn.textContent = password.type === "password" ? "👁️" : "🙈";
+  });
+
+  // Validación antes del submit
+  form.addEventListener("submit", (e) => {
+    if (!fullName.value.trim() || !email.value.trim() || !password.value || !rol.value) {
+      e.preventDefault();
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos incompletos',
+        text: 'Por favor completá todos los campos antes de continuar.',
+        confirmButtonText: 'Entendido'
+      });
+    }
+  });
+});
+</script>
+
+{% endblock %}

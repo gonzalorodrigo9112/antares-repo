@@ -1,0 +1,271 @@
+/* ===== CONTENEDOR GENERAL ===== */
+
+
+:root {
+  --bg-color: #1a2a3a;
+  --text-color: #f3f3be;
+  --input-bg: #273746;
+  --input-text: #fff8dc;
+  --btn-bg: #145da0;
+  --btn-hover: #4592da;
+  --btn-text: #f8b551;
+  --error-bg: #ffe0e0;
+  --error-text: #a30000;
+  --link-color: #87b0f6;
+}
+
+body.light-mode {
+  --bg-color: #ffffff;
+  --text-color: #1a2a3a;
+  --input-bg: #f2f2f2;
+  --input-text: #000000;
+  --btn-bg: #f8b551;
+  --btn-hover: #e6a843;
+  --btn-text: #145da0;
+  --error-bg: #fff0f0;
+  --error-text: #990000;
+  --link-color: #145da0;
+}
+
+/* ------------- BOTON MODO OSCURO ----------- */
+/* .theme-toggle-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--link-color);
+  border-radius: 50%;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  z-index: 1000;
+  transition: all 0.3s ease;
+} */
+
+.theme-toggle-btn:hover {
+  background-color: var(--link-color);
+  color: var(--bg-color);
+}
+
+
+
+
+
+
+.login-card {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.login-title {
+  color: var(--text-color);
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.login-form label {
+  color: var(--text-color);
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+
+
+
+
+.login-form input,
+.login-form select {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.login-form input:focus,
+.login-form select:focus {
+  outline: 2px solid var(--link-color);
+  background-color: #2c3e50;
+}
+
+
+
+
+
+.login-btn {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 100%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-btn:hover {
+  background-color: var(--btn-hover);
+  transform: scale(1.02);
+}
+
+.error-msg {
+  background-color: var(--error-bg);
+  color: var(--error-text);
+}
+
+.register-link {
+  color: var(--text-color);
+}
+
+.register-link a {
+  color: var(--link-color);
+}
+
+
+
+
+
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: 2rem;
+}
+
+
+
+/* ---------- SHAKE --------- */
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-8px); }
+  80% { transform: translateX(8px); }
+  100% { transform: translateX(0); }
+}
+
+
+
+
+
+
+/* ===== BOTÓN ===== */
+.login-btn {
+  background-color: #145da0;
+  color: #f8b551;
+  padding:1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+}
+
+.login-btn:hover {
+  background-color: #4592da;
+}
+
+/* ===== ERROR ===== */
+.error-msg {
+  background-color: #ffe0e0;
+  color: #a30000;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 0.6rem;
+  font-weight: bold;
+}
+
+
+
+
+/* ===== LINK A REGISTRO ===== */
+.register-link {
+  margin-top: 1.5rem;
+  color: #777373;
+  font-size: 0.9rem;
+}
+
+.register-link a {
+  color: #87b0f6;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 1rem;
+  }
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+}
+
+
+  .login-form {
+    gap: 0.8rem;
+  }
+
+  .login-title {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .login-form input {
+    font-size: 0.95rem;
+    padding: 0.6rem;
+  }
+
+  .login-btn {
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+    
+  }
+}
+
+/* --------- Recupero de Contraseña -------- */
+
+.forgot-password-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.forgot-password-link a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.forgot-password-link a:hover {
+  text-decoration: underline;
+}
+

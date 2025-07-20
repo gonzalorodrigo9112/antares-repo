@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block categorias %}{% endblock %}
+{% block buscador %}{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <div class="login-card">
+    <h2 class="login-title">Iniciar Sesión</h2>
+
+    {% if error %}
+      <p class="error-msg">{{ error }}</p>
+    {% endif %}
+
+
+
+    {% if error %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('clave');
+
+    if (emailInput) emailInput.value = "";
+    if (passwordInput) passwordInput.value = "";
+  });
+</script>
+{% endif %}
+
+<div class="login-card {% if error %}shake{% endif %}">
+
+    <form method="POST" action="{{ url_for('auth.login') }}" class="login-form" autocomplete="off">
+      <label for="email">Correo electrónico</label><br>
+      <input type="email" name="email" id="email" required autocomplete="off">
+      <br><br>
+
+      <!-- <input type="text" name="user_input" id="user_input" required autocomplete="off"> -->
+
+
+
+      <!-- <br><br> -->
+      <label for="clave">Contraseña</label><br>
+      <input type="password" name="password" id="clave" required autocomplete="off">
+
+
+<br><br>
+     <button type="submit" class="login-btn">Ingresar</button>
+
+<p class="forgot-password-link">
+  <a href="{{ url_for('auth.forgot_password') }}">¿Olvidaste tu contraseña?</a>
+</p>
+
+
+
+    </form>
+
+
+
+
+
+</div>
+<br><br>
+    <p class="register-link">
+      ¿No tienes cuenta?
+      <a href="{{ url_for('auth.register') }}">Regístrate</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}
